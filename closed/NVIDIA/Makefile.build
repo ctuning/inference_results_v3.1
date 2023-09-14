@@ -83,8 +83,8 @@ FT_NVCC_PATH ?= /usr/local/cuda/bin/nvcc
 
 # TRT-LLM dependency
 # TODO: Using internal repo for TRTLLM, change to public later. Personal token is needed.
-USE_RELEASE_TRTLLM ?= 1
-SKIP_TRTLLM_BUILD ?= 0
+USE_RELEASE_TRTLLM ?= 0
+SKIP_TRTLLM_BUILD ?= 1
 TRTLLM_DIR ?= $(BUILD_DIR)/TRTLLM
 TRTLLM_BUILD_DIR ?= $(BUILD_DIR)/TRTLLM/build
 TRTLLM_URL = https://gitlab-master.nvidia.com/ftp/tekit.git
@@ -101,7 +101,7 @@ endif
 
 # TODO (7/12/2023): Turn off Triton for now
 BUILD_TRITON ?= 0
-BUILD_TRTLLM ?= 1
+BUILD_TRTLLM ?= 0
 
 # Build flags
 HARNESS_BUILD_FLAGS := -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) -DLOADGEN_INCLUDE_DIR=$(LOADGEN_INCLUDE_DIR) -DLOADGEN_LIB_DIR=$(LOADGEN_LIB_DIR) -DBUILD_TRTLLM=$(BUILD_TRTLLM) -DTRTLLM_DIR=$(TRTLLM_DIR)
