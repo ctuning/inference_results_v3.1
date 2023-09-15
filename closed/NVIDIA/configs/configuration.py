@@ -256,7 +256,7 @@ class ConfigRegistry(object):
         cls._check_harness_support(config, workload_setting)
 
         # Criteria 3,4
-        cls._check_field_descriptions(config, workload_setting)
+        cls._check_field_descriptions(config, workload_setting, False)
 
         # Criteria 5: Cannot define the same field multiple times within the class
         cls._check_field_reassignment(config)

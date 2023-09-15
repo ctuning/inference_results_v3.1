@@ -183,6 +183,8 @@ class BaseBenchmarkHarness:
         return full_benchmark_name
 
     def get_full_log_dir(self):
+        if os.environ.get("MLPERF_LOADGEN_LOGS_DIR"):
+            return os.environ.get("MLPERF_LOADGEN_LOGS_DIR")
         return os.path.join(self.args["log_dir"], self.get_system_name(), self._get_submission_benchmark_name(),
                             self.scenario.valstr())
 
@@ -340,10 +342,12 @@ class BaseBenchmarkHarness:
 
         # Return harness result.
         scenario_key = scenario_loadgen_log_keys[self.scenario]
-        results = from_loadgen_by_keys(os.path.join(self.args["log_dir"],
+        '''results = from_loadgen_by_keys(os.path.join(self.args["log_dir"],
                                                     self.get_system_name(),
                                                     self._get_submission_benchmark_name(),
                                                     self.scenario.valstr()),
+        '''
+        results = from_loadgen_by_keys(os.path.join(self.get_full_log_dir()),
                                        ["result_validity", scenario_key, "early_stopping_met"])
         test_mode = flag_dict.get("test_mode", "PerformanceOnly")
         satisfies_query_constraint = float(results.get(scenario_key, "0.0")) >= QUERY_METRIC_CONSTRAINTS[self.scenario.valstr()][1]

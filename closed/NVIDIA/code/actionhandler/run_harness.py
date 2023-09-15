@@ -135,8 +135,9 @@ class RunHarnessHandler(GenerateConfFilesHandler):
                 md.update(result_data)
         else:
             md = result_data
-        with open(summary_file, "w") as f:
-            json.dump(md, f, indent=4, sort_keys=True)
+            if not os.environ.get('MLPERF_LOADGEN_LOGS_DIR'):
+                with open(summary_file, "w") as f:
+                    json.dump(md, f, indent=4, sort_keys=True)
 
     def _get_result_string(self, result_data):
         if result_data["test_mode"] == "AccuracyOnly":

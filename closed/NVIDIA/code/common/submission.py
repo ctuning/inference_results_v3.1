@@ -85,8 +85,8 @@ def generate_measurements_entry(system_name, short_benchmark_name, full_benchmar
 
 
 def generate_mlperf_conf(mlperf_conf_path):
-    shutil.copyfile("build/inference/mlperf.conf", mlperf_conf_path)
-
+    #shutil.copyfile("build/inference/mlperf.conf", mlperf_conf_path)
+    pass
 
 def generate_user_conf(user_conf_path, scenario, flag_dict):
     # Required settings for each scenario
@@ -111,7 +111,8 @@ def generate_user_conf(user_conf_path, scenario, flag_dict):
         parameter_scaling_map["target_qps"] = flag_dict["server_target_qps_adj_factor"]
     flag_dict["server_target_qps_adj_factor"] = None
 
-    with open(user_conf_path, 'w') as f:
+    #with open(user_conf_path, 'w') as f:
+    with open(user_conf_path+"_tmp", 'w') as f:
         for param in required_settings_map[scenario]:
             param_name = param
             if param in options_map:
@@ -119,7 +120,7 @@ def generate_user_conf(user_conf_path, scenario, flag_dict):
             value = flag_dict[param]
             if param_name in parameter_scaling_map:
                 value = value * parameter_scaling_map[param_name]
-            f.write("*.{:}.{:} = {:}\n".format(scenario.valstr(), param_name, value))
+            #f.write("*.{:}.{:} = {:}\n".format(scenario.valstr(), param_name, value))
             flag_dict[param] = None
 
         for param in optional_settings_map[scenario]:
@@ -131,7 +132,7 @@ def generate_user_conf(user_conf_path, scenario, flag_dict):
             value = flag_dict[param]
             if param_name in parameter_scaling_map:
                 value = value * parameter_scaling_map[param_name]
-            f.write("*.{:}.{:} = {:}\n".format(scenario.valstr(), param_name, value))
+            #f.write("*.{:}.{:} = {:}\n".format(scenario.valstr(), param_name, value))
             flag_dict[param] = None
 
 

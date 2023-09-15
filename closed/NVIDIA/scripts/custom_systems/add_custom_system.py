@@ -205,7 +205,12 @@ def generate_config(benchmark, scenario, system):
                         continue
                     field = field_dict[field_name]
                     default_value = field.value_type()  # Use default constructor
-                    lines.append(f"    {field_name}: {field.value_type.__name__} = {repr(default_value)}\n")
+                    lines.append(f"#    {field_name}: {field.value_type.__name__} = {repr(default_value)}\n")
+                    dynamic_fields =  [ "qps", "expected_latency", "gpu_batch_size" ]
+                    if any(f in field_name for f in dynamic_fields):
+                        lines.append(f"    {field_name}: {field.value_type.__name__} = {field.value_type.__name__}(os.environ.get('{field_name}', {repr(default_value)}))\n")
+                    else:
+                        lines.append(f"#    {field_name}: {field.value_type.__name__} = {repr(default_value)}\n")
 
             lines.append("\n")
             lines.append("    # Applicable fields for this benchmark are listed below. Not all of these are necessary, and some may be defined in the BaseConfig already and inherited.\n")
@@ -236,9 +241,9 @@ def generate_configs(system):
 def yes_no_prompt(message, default=True):
     choices = ["", "y", "n"]
     if default is True:
-        choice_str = "[Y/n]"
+        choice_str = "[y/n]"
     elif default is False:
-        choice_str = "[y/N]"
+        choice_str = "[y/n]"
     elif default is None:
         choice_str = "[y/n]"
         choices = ["y", "n"]
