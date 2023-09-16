@@ -95,7 +95,7 @@ def get_args() -> argparse.Namespace:
                         help="Path to the directory containing postprocessed data")
     parser.add_argument("--num_proc",
                         type=int,
-                        default=4,
+                        default=2,
                         help="Number of processors running postprocessing")
     args = parser.parse_args()
     return args
