@@ -32,7 +32,7 @@ INFERENCE_DIR = $(BUILD_DIR)/inference
 INFERENCE_URL = https://github.com/mlcommons/inference.git
 LOADGEN_INCLUDE_DIR ?= $(INFERENCE_DIR)/loadgen
 LOADGEN_LIB_DIR ?= $(LOADGEN_INCLUDE_DIR)/build
-INFERENCE_HASH = 1bddedf8e5d1b72d92b74f10f2c2e604cf3a6c8b
+INFERENCE_HASH = cc3daae3c7f18d7eedc5ffbc271d324e5aca6233
 
 # Set Environment variables to extracted contents
 export LD_LIBRARY_PATH := $(LD_LIBRARY_PATH):/usr/local/cuda/lib64:/usr/lib/$(ARCH)-linux-gnu:$(LOADGEN_LIB_DIR)
@@ -226,7 +226,6 @@ clone_loadgen:
 		&& cd $(INFERENCE_DIR) \
 		&& git fetch \
 		&& git checkout $(INFERENCE_HASH) \
-		&& git submodule update --init third_party/pybind \
 		&& git submodule update --init language/bert/DeepLearningExamples \
 		&& git submodule update --init vision/medical_imaging/3d-unet-brats19/nnUnet
 
