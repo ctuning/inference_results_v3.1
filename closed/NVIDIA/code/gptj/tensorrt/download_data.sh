@@ -15,6 +15,9 @@
 
 DATA_DIR=${DATA_DIR:-/work/build/data}
 
+DATASET_CNNDM_PATH=${DATA_DIR}/cnn-daily-mail python3 build/inference/language/gpt-j/download_cnndm.py
+exit $?
+
 # Make sure the script is executed inside the container
 if [ -e /work/code/gptj/tensorrt/download_data.sh ]
 then

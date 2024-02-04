@@ -18,27 +18,27 @@ set -e
 source code/common/file_downloads.sh
 
 # Make sure the script is executed inside the container
-if [ -e /work/code/gptj/tensorrt/download_model.sh ]
-then
-    echo "Inside container, start downloading..."
-else
-    echo "WARNING: Please enter the MLPerf container (make prebuild) before downloading gptj6b model."
-    echo "WARNING: gptj6b model is NOT downloaded! Exiting..."
-    exit 0
-fi
+#if [ -e /work/code/gptj/tensorrt/download_model.sh ]
+#then
+#    echo "Inside container, start downloading..."
+#else
+#    echo "WARNING: Please enter the MLPerf container (make prebuild) before downloading gptj6b model."
+#    echo "WARNING: gptj6b model is NOT downloaded! Exiting..."
+#    exit 0
+#fi
 
 # Download the raw weights
-download_file models GPTJ-6B \
-    https://cloud.mlcommons.org/index.php/s/QAZ2oM94MkFtbQx/download \
-    gptj6b.zip
+#download_file models GPTJ-6B \
+#    https://cloud.mlcommons.org/index.php/s/QAZ2oM94MkFtbQx/download \
+#    gptj6b.zip
 
 # unzip the model
-unzip ${MLPERF_SCRATCH_PATH}/models/GPTJ-6B/gptj6b.zip \
-    -d ${MLPERF_SCRATCH_PATH}/models/GPTJ-6B
+#unzip ${MLPERF_SCRATCH_PATH}/models/GPTJ-6B/gptj6b.zip \
+#    -d ${MLPERF_SCRATCH_PATH}/models/GPTJ-6B
 
 # Move the model up a directory
-mv ${MLPERF_SCRATCH_PATH}/models/GPTJ-6B/gpt-j/checkpoint-final ${MLPERF_SCRATCH_PATH}/models/GPTJ-6B/checkpoint-final \
-    && rm -r ${MLPERF_SCRATCH_PATH}/models/GPTJ-6B/gpt-j
+#mv ${MLPERF_SCRATCH_PATH}/models/GPTJ-6B/gpt-j/checkpoint-final ${MLPERF_SCRATCH_PATH}/models/GPTJ-6B/checkpoint-final \
+#    && rm -r ${MLPERF_SCRATCH_PATH}/models/GPTJ-6B/gpt-j
 
 
 if [ -e /opt/GPTJ-07142023.pth ]
