@@ -572,7 +572,7 @@ def main():
         pt_tester = PytorchTester(args.pyt_ckpt_path, args.training_repo_path, args.batch_size)
         pt_acc = pt_tester.run_openimage(args.num_samples)
         logging.info(f"Pytorch mAP Score: {pt_acc}, Reference: 0.375, % of ref: {pt_acc / 0.375}")
-    else:
+    elif False: #skipping as accuracy check is done in CM
         # TRT Tester
         logging.info(f"Running accuracy test for retinanet using {args.engine_file} ...")
         tester = TRTTester(args.engine_file, args.batch_size, args.trt_precision, args.num_opt_profiles,
